@@ -24,8 +24,8 @@ script:
   - make O=out mrproper
   - export CROSS_COMPILE=~/toolchain/bin/aarch64-linux-android-
   - export ARCH=arm64 
-  - export KBUILD_BUILD_USER="fr3aky"
-  - export KBUILD_BUILD_HOST="Phantom_Zone"
+  - export KBUILD_BUILD_USER="ALGPHELLO"
+  - export KBUILD_BUILD_HOST="fujitsu"
   - export ARCH_MTK_PLATFORM=mt6735
   - make O=out ARCH=$ARCH CROSS_COMPILE=$CROSS_COMPILE gnsz6753_66_n_defconfig
   - make O=out ARCH=$ARCH CROSS_COMPILE=$CROSS_COMPILE -j32
@@ -44,7 +44,7 @@ deploy:
   file: $KERNEL_DIR/out/arch/arm64/boot/*Image*
   on:
     tags: false
-    repo: PhantomZone54/android_kernel_gionee_gnsz6753_66_nougat
+    repo: ALGPHELLO/android_kernel_gionee_gnsz6753_66_nougat
     branch: master
 
 branches:
