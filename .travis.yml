@@ -24,18 +24,18 @@ before_install:
 
 
 script:  
-  #- mkdir -p out
-  #- make O=out clean
-  #- make O=out mrproper
+  - mkdir -p out
+  - make O=out clean
+  - make O=out mrproper
   - export export CROSS_COMPILE=~/aarch64-linux-android-4.9/bin/aarch64-linux-android-
   - export ARCH_MTK_PLATFORM=mt6753
   - export ARCH=arm64
   - export KBUILD_BUILD_USER="ALGPHELLO"
   - export KBUILD_BUILD_HOST="fujitsu"
   #- make O=out gnsz6753_66_n_defconfig
-  - make gionee6753_66_nougat_defconfig
-  - make -j32
-  - KERNEL_DIR=$PWD
+  - make O=out gionee6753_66_nougat_defconfig
+  - make O=out -j32
+  - KERNEL_DIR=$PWD/out
   - ZIMAGE=$KERNEL_DIR/arch/arm64/boot/zImage
 
 after_success:
