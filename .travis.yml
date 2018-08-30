@@ -16,9 +16,9 @@ before_install:
 
   - sudo apt-get update -qq
   
-  - git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/ ~/aarch64-linux-android-4.9/
+  - git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9 ~/toolchain/
   
-  - sudo chmod -R a+x ~/aarch64-linux-android-4.9/*
+  - sudo chmod -R a+x ~/toolchain/*
 
 
 
@@ -27,7 +27,7 @@ script:
   #- mkdir -p out
   #- make O=out clean
   #- make O=out mrproper
-  - export export CROSS_COMPILE=~/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+  - export export CROSS_COMPILE=~/toolchain/bin/aarch64-linux-android-
   - export ARCH=arm64
   - export KBUILD_BUILD_USER="ALGPHELLO"
   - export KBUILD_BUILD_HOST="fujitsu"
