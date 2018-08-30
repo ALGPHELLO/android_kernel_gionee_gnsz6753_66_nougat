@@ -40,7 +40,7 @@ script:
 
 after_success:
   - cd $KERNEL_DIR
-  - curl --upload-file arch/arm64/boot/Image.gz https://transfer.sh/gnsz6753_66_n-kernel
+  - curl --upload-file arch/arm64/boot/zImage https://transfer.sh/gnsz6753_66_n-kernel
   
 deploy:
   skip_cleanup: true
