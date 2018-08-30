@@ -1,17 +1,16 @@
-language: c
-#######################################################################################
-os:
-  - linux
-  
-sudo: enabled
+os: linux
+
+dist: xenial
+
+sudo: required
+
+git:
+  depth: 3
 
 addons:
   apt:
-    packages:
-      - curl
-
-#######################################################################################
-
+    update:
+    - true
 
 before_install:
 
@@ -19,32 +18,37 @@ before_install:
   
   - git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/ ~/aarch64-linux-android-4.9/
   
-  - sudo chmod -R a+x *
+  - sudo chmod -R a+x ~/aarch64-linux-android-4.9/*
 
-#######################################################################################
+
 
 
 script:  
-  - mkdir -p out
-  - make O=out clean
-  - make O=out mrproper
+  #- mkdir -p out
+  #- make O=out clean
+  #- make O=out mrproper
   - export export CROSS_COMPILE=~/aarch64-linux-android-4.9/bin/aarch64-linux-android-
   - export ARCH_MTK_PLATFORM=mt6753
   - export ARCH=arm64
   - export KBUILD_BUILD_USER="ALGPHELLO"
   - export KBUILD_BUILD_HOST="fujitsu"
-  - KERNEL_DIR=$PWD/android_kernel_gionee_gnsz6753_66_nougat/out
-  - ZIMAGE=$KERNEL_DIR/arch/arm64/boot/Image
-  - make O=out gnsz6753_66_n_defconfig
-  - make O=out -j32
+  #- make O=out gnsz6753_66_n_defconfig
+  - make gionee6753_66_nougat_defconfig
+  - make -j32
+  - KERNEL_DIR=$PWD
+  - ZIMAGE=$KERNEL_DIR/arch/arm64/boot/zImage
 
 after_success:
+  - cd $KERNEL_DIR
   - curl --upload-file arch/arm64/boot/Image.gz https://transfer.sh/gnsz6753_66_n-kernel
   
 deploy:
   skip_cleanup: true
   provider: releases
   api_key: "$GitOAUTHToken_ANDROID"
+  file_glob: true
+  file: $KERNEL_DIR/arch/arm64/boot/*Image*
+  file: $KERNEL_DIR/arch/arm64/boot/*zImage*
   
   on:
     tags: true
